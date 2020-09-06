@@ -43,11 +43,11 @@ Another level of challenge to the snake's movement is, the speed of the snake in
 
 * #### Main function - `main.cpp`
 
-  1. Declare and define game rendering parameters i.e.
-      - Frames per second (FPS)
-      - Milliseconds per frame
-      - Game screen dimensions
-      - Game grid dimensions
+  * \1. Declare and define game rendering parameters i.e.
+      * \- Frames per second (FPS)
+      * \- Milliseconds per frame
+      * \- Game screen dimensions
+      * \- Game grid dimensions
   2. Declare and define shared pointers for head coordinates and vector of body cells  
     - Shared pointers are passed to _game.cpp_ and then between _snake.cpp_ and _mongoose.cpp_
     - The memory pointed to by these shared pointers has the current value of the rival's head cell and body cells
