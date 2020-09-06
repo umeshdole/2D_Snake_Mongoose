@@ -43,16 +43,16 @@ Another level of challenge to the snake's movement is, the speed of the snake in
 
 * #### Main function - `main.cpp`
 
-  * \1. Declare and define game rendering parameters i.e.
-      * \- Frames per second (FPS)
-      * \- Milliseconds per frame
-      * \- Game screen dimensions
-      * \- Game grid dimensions
+  1. Declare and define game rendering parameters i.e.
+      - Frames per second (FPS)
+      - Milliseconds per frame
+      - Game screen dimensions
+      - Game grid dimensions
   2. Declare and define shared pointers for head coordinates and vector of body cells  
-    - Shared pointers are passed to _game.cpp_ and then between _snake.cpp_ and _mongoose.cpp_
-    - The memory pointed to by these shared pointers has the current value of the rival's head cell and body cells
-    - Therefore, when the game is executing _Snake::Update_, the function uses mongoose's location and vice-a-versa
-    - The location of the rival's head and body is used to determine if the snake has killed the mongoose or vice-a-versa
+      - Shared pointers are passed to _game.cpp_ and then between _snake.cpp_ and _mongoose.cpp_
+      - The memory pointed to by these shared pointers has the current value of the rival's head cell and body cells
+      - Therefore, when the game is executing _Snake::Update_, the function uses mongoose's location and vice-a-versa
+      - The location of the rival's head and body is used to determine if the snake has killed the mongoose or vice-a-versa
   3. Create _Controller_, _Game_, and _Renderer_ objects to input, update and render the game, respectively
 
 * #### Game Rivals - `rival.h` and `rival.cpp`
@@ -72,9 +72,9 @@ Another level of challenge to the snake's movement is, the speed of the snake in
   4. Declare and define health status parameters i.e. alive and growing
   5. Override _virtual functions_ for updating the rival parameters
   6. Declare and define a _lock\_guard_ instance and lock the game _mutex_  
-    - Update the snake head cell and body cells under the lock, and check whether snake is alive or killed
-    - Update the memory for rival's head cell and body cells, pointed to by the shared pointers defined in _main.cpp_ and passed to _Snake::Update_, with snake's head cell and body cells
-    - Notify the asynchronous execution of _Snake::Update_ started by _game.cpp_, with game's _condition\_variable_ that rival head cell and body cells have been updated and the game can acquire the lock
+      - Update the snake head cell and body cells under the lock, and check whether snake is alive or killed
+      - Update the memory for rival's head cell and body cells, pointed to by the shared pointers defined in _main.cpp_ and passed to _Snake::Update_, with snake's head cell and body cells
+      - Notify the asynchronous execution of _Snake::Update_ started by _game.cpp_, with game's _condition\_variable_ that rival head cell and body cells have been updated and the game can acquire the lock
 
 * #### Mongoose - `mongoose.h` and `mongoose.cpp`
 
@@ -84,9 +84,9 @@ Another level of challenge to the snake's movement is, the speed of the snake in
   4. Declare and define health status parameters i.e. alive and growing
   5. Override _virtual functions_ for updating the rival parameters
   6. Declare and define a _lock\_guard_ instance and lock the game _mutex_  
-    - Update the mongoose head cell and body cells under the lock and check whether mongoose is alive or killed
-    - Update the memory for rival's head cell and body cells, pointed to by the shared pointers defined in _main.cpp_ and passed to _Mongoose::Update_, with mongoose's head cell and body cells
-    - Notify the asynchronous execution of _Mongoose::Update_ started by _game.cpp_, with game's _condition\_variable_ that rival head cell and body cells have been updated and the game can acquire the lock 
+      - Update the mongoose head cell and body cells under the lock and check whether mongoose is alive or killed
+      - Update the memory for rival's head cell and body cells, pointed to by the shared pointers defined in _main.cpp_ and passed to _Mongoose::Update_, with mongoose's head cell and body cells
+      - Notify the asynchronous execution of _Mongoose::Update_ started by _game.cpp_, with game's _condition\_variable_ that rival head cell and body cells have been updated and the game can acquire the lock 
 
 * #### The Game - `game.h` and `game.cpp`
 
