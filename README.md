@@ -41,7 +41,7 @@ Another level of challenge to the snake's movement is, the speed of the snake in
 
 ## File Structure for Developers
 
-* ### Main function - `main.cpp`
+* #### Main function - `main.cpp`
 
   1. Declare and define game rendering parameters i.e.  
     - Frames per second (FPS)
@@ -55,54 +55,54 @@ Another level of challenge to the snake's movement is, the speed of the snake in
     - The location of the rival's head and body is used to determine if the snake has killed the mongoose or vice-a-versa
   3. Create _Controller_, _Game_, and _Renderer_ objects to input, update and render the game, respectively
 
-* ### Game Rivals - `rival.h` and `rival.cpp`
+* #### Game Rivals - `rival.h` and `rival.cpp`
 
- 1. Abstract class interface _Rivals_ which provides the framework for game rivals
- 2. Declare and define physical parameters i.e. size and head & body cell coordinates
- 3. Declare and define movement parameters i.e. speed and direction
- 4. Declare and define health status parameters i.e. alive and growing
- 5. Declare _pure virtual functions_ for updating the rival parameters
- 6. Declare global variables for game _mutex_ and _condition\_variable_
+  1. Abstract class interface _Rivals_ which provides the framework for game rivals
+  2. Declare and define physical parameters i.e. size and head & body cell coordinates
+  3. Declare and define movement parameters i.e. speed and direction
+  4. Declare and define health status parameters i.e. alive and growing
+  5. Declare _pure virtual functions_ for updating the rival parameters
+  6. Declare global variables for game _mutex_ and _condition\_variable_
 
-* ### Snake - `snake.h` and `snake.cpp`
+* #### Snake - `snake.h` and `snake.cpp`
 
- 1. Public inheritance of _Rivals_ class to create a class _Snake_ for snake as rival
- 2. Declare and define physical parameters i.e. size and head & body cell coordinates
- 3. Declare and define movement parameters i.e. speed and direction
- 4. Declare and define health status parameters i.e. alive and growing
- 5. Override _virtual functions_ for updating the rival parameters
- 6. Declare and define a _lock\_guard_ instance and lock the game _mutex_  
+  1. Public inheritance of _Rivals_ class to create a class _Snake_ for snake as rival
+  2. Declare and define physical parameters i.e. size and head & body cell coordinates
+  3. Declare and define movement parameters i.e. speed and direction
+  4. Declare and define health status parameters i.e. alive and growing
+  5. Override _virtual functions_ for updating the rival parameters
+  6. Declare and define a _lock\_guard_ instance and lock the game _mutex_  
     - Update the snake head cell and body cells under the lock, and check whether snake is alive or killed
     - Update the memory for rival's head cell and body cells, pointed to by the shared pointers defined in _main.cpp_ and passed to _Snake::Update_, with snake's head cell and body cells
     - Notify the asynchronous execution of _Snake::Update_ started by _game.cpp_, with game's _condition\_variable_ that rival head cell and body cells have been updated and the game can acquire the lock
 
-* ### Mongoose - `mongoose.h` and `mongoose.cpp`
+* #### Mongoose - `mongoose.h` and `mongoose.cpp`
 
- 1. Public inheritance of _Rivals_ class to create a class _Mongoose_ for mongoose as rival
- 2. Declare and define physical parameters i.e. size and head & body cell coordinates
- 3. Declare and define movement parameters i.e. speed and direction
- 4. Declare and define health status parameters i.e. alive and growing
- 5. Override _virtual functions_ for updating the rival parameters
- 6. Declare and define a _lock\_guard_ instance and lock the game _mutex_  
+  1. Public inheritance of _Rivals_ class to create a class _Mongoose_ for mongoose as rival
+  2. Declare and define physical parameters i.e. size and head & body cell coordinates
+  3. Declare and define movement parameters i.e. speed and direction
+  4. Declare and define health status parameters i.e. alive and growing
+  5. Override _virtual functions_ for updating the rival parameters
+  6. Declare and define a _lock\_guard_ instance and lock the game _mutex_  
     - Update the mongoose head cell and body cells under the lock and check whether mongoose is alive or killed
     - Update the memory for rival's head cell and body cells, pointed to by the shared pointers defined in _main.cpp_ and passed to _Mongoose::Update_, with mongoose's head cell and body cells
     - Notify the asynchronous execution of _Mongoose::Update_ started by _game.cpp_, with game's _condition\_variable_ that rival head cell and body cells have been updated and the game can acquire the lock 
 
-* ### The Game - `game.h` and `game.cpp`
+* #### The Game - `game.h` and `game.cpp`
 
- 1. Define global variables for game _mutex_ and _condition\_variable_
- 2. Run the input, update and render loop indefinitely or till the snake dies
- 3. Kick off Uniform Random Number Generator to place food within the grid dimensions and away from snake and mongoose
- 4. Declare _future_ variables for snake and mongoose and kick off asynchronous execution of their _Update_ function
- 5. Declare and define a _unique\_lock_ instance and lock the game _mutex_, but block the asynchronous task and release the game _mutex_ until the memory pointed to by the shared pointer has been updated and the _wait_ for game's _condition\_variable_ has been _notified_
- 6. If the snake "ate" the food, replace the food, increase the score, increase the speed, and grown the body. However, if the mongoose "ate" the food, just replace the food.
+  1. Define global variables for game _mutex_ and _condition\_variable_
+  2. Run the input, update and render loop indefinitely or till the snake dies
+  3. Kick off Uniform Random Number Generator to place food within the grid dimensions and away from snake and mongoose
+  4. Declare _future_ variables for snake and mongoose and kick off asynchronous execution of their _Update_ function
+  5. Declare and define a _unique\_lock_ instance and lock the game _mutex_, but block the asynchronous task and release the game _mutex_ until the memory pointed to by the shared pointer has been updated and the _wait_ for game's _condition\_variable_ has been _notified_
+  6. If the snake "ate" the food, replace the food, increase the score, increase the speed, and grown the body. However, if the mongoose "ate" the food, just replace the food.
 
-* ### The Renderer - `renderer.h` and `renderer.cpp`
+* #### The Renderer - `renderer.h` and `renderer.cpp`
 
- 1. Since the _Renderer_ object requires custom destructor, _Rule of Five_ has been implemented and a copy constructor, copy assignment operator, move constructor and move assignement operator have also been defined
- 2. Declare and define the main render function to render the snake body, mongoose body and food using SDL
- 3. Display information message window when mongoose and snake instance is killed or destroyed 
+  1. Since the _Renderer_ object requires custom destructor, _Rule of Five_ has been implemented and a copy constructor, copy assignment operator, move constructor and move assignement operator have also been defined
+  2. Declare and define the main render function to render the snake body, mongoose body and food using SDL
+  3. Display information message window when mongoose and snake instance is killed or destroyed 
 
-* ### The Controller - `controller.h` and `controller.cpp`
- 1. get key inputs from the up, down, left and right arrow keys
- 2. change snake head's direction based on user's inputs
+* #### The Controller - `controller.h` and `controller.cpp`
+  1. get key inputs from the up, down, left and right arrow keys
+  2. change snake head's direction based on user's inputs
